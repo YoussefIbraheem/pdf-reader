@@ -1,8 +1,4 @@
-from app import app , render_template , socketio
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+from app import app, socketio
 
 
 

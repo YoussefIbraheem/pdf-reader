@@ -1,6 +1,8 @@
 from flask import Flask , render_template , redirect, url_for , Blueprint
 from flask_socketio import SocketIO
+from  config import Config
 
+config = Config()
 socketio = SocketIO() 
 blueprint = Blueprint('main', __name__, template_folder='templates')
 def create_app():

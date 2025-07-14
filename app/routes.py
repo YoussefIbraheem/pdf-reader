@@ -15,13 +15,17 @@ def chat():
 
 @blueprint.route('/pdf-test')
 def pdfTest():  
-    retriever = PDFProcessor('./test.pdf').as_retriever() 
-    llm = LLMProcessor().get_llm()
-
-    answer = ChatProcessor(retriever=retriever,llm=llm).ask('summerize this file content')
-    print('-----')  
-    print(answer)
-    print('-----')
-    return redirect(url_for('main.index'))
+    try:
+        retriever = PDFProcessor('./samples/gen19.pdf').as_retriever() 
+        llm = LLMProcessor().get_llm()
+        chatProcessor = ChatProcessor(retriever=retriever,llm=llm)
+        summerizer = chatProcessor.generate_summerization()
+        answer = chatProcessor.ask("What is The importance of managing wildlife trade?")
+        print("Summary:", summerizer)
+        print("Answer:", answer)
+        return redirect(url_for('main.index'))
+    except Exception as e:
+        print("ERROR:", e)
+        return redirect(url_for('main.index'))
 
 
